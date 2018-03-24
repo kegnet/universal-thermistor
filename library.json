@@ -1,5 +1,5 @@
 {
-  "name": "Universal Thermistor",
+  "name": "universal-thermistor",
   "version": "4.1.0",
   "keywords": "thermistor, temperature, ntc, esp8266, Steinhart, Steinhart–Hart",
   "description": "A fully configurable NTC thermistor library.",
