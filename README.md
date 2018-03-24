@@ -8,6 +8,8 @@ This makes it particularly useful for devices that do not fit the typical Arduin
 * Particle Photon: vcc and analogRef are 3.3 but adcMax is 4095
 * ESP8266: vcc is 3.3 but analogRef is usually 1.0
 
+This library is based on [photon-thermistor](https://github.com/kegnet/photon-thermistor) but simplified somewhat to be less Particle-centric.
+
 ### Hookup
 
 See https://learn.adafruit.com/thermistor/using-a-thermistor
