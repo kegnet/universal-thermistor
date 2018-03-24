@@ -15,7 +15,7 @@
       "email": "paul@monospacesoftware.com",
       "url": "http://www.monospacesoftware.com",
       "maintainer": true
-    },
+    }
   ],
   "frameworks": "arduino",
   "platforms": "*"
