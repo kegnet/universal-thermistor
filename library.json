@@ -1,0 +1,22 @@
+{
+  "name": "Universal Thermistor",
+  "version": "4.1.0",
+  "keywords": "thermistor, temperature, ntc, esp8266, Steinhart, Steinhart–Hart",
+  "description": "A fully configurable NTC thermistor library.",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/kegnet/universal-thermistor.git"
+  },
+  "authors":
+  [
+    {
+      "name": "Paul Cowan",
+      "email": "paul@monospacesoftware.com",
+      "url": "http://www.monospacesoftware.com",
+      "maintainer": true
+    },
+  ],
+  "frameworks": "arduino",
+  "platforms": "*"
+}
