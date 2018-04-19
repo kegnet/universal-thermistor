@@ -58,3 +58,5 @@ void loop() {
 * If the temperature reported by the thermistor is a very small negative number, around -140, the circuit is open or thermistor is not connected.
 * If the temperature reported by the thermistor is a very high number, such as 650, the thermistor is likely connected without the series resistor.
 * Be sure your connection is Vcc -> seriesResistor -> thermistor -> ground, and your A0 pin is connect between seriesResistor and thermistor. It will not work otherwise.
+
+
