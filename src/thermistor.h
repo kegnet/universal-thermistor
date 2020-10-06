@@ -41,7 +41,7 @@ class Thermistor {
     const double _bCoef;
     const int _samples;
     const int _sampleDelay;
-
+    const bool _thermistorFirst;
   public:
 
     /*
@@ -57,6 +57,11 @@ class Thermistor {
     * arg 10: sampleDelay: Milliseconds between samples (for smoothing)
     */
     Thermistor(int pin, double vcc, double analogReference, int adcMax, int seriesResistor, int thermistorNominal, int temperatureNominal, int bCoef, int samples, int sampleDelay);
+    
+    /*
+    * arg 11: boolean indicating that the thermistor is first in series
+    */
+    Thermistor(int pin, double vcc, double analogReference, int adcMax, int seriesResistor, int thermistorNominal, int temperatureNominal, int bCoef, int samples, int sampleDelay, bool thermistorFirst);
 
     // Smoothed ADC value
     double readADC() const;
@@ -78,6 +83,18 @@ class Thermistor {
 
     // convert Celsius to Fahrenheit
     double cToF(double c) const;
+
+    // Resistance of the thermistor
+    double getResistance() const;
+
+    // Convert ADC value to resistance
+    double adcToR(double adc) const;
+
+    // Voltage between the voltage divider
+    double getVoltage() const;
+
+    // Convert ADC value to voltage
+    double adcToV(double adc) const;
 };
 
 #endif

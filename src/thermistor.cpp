@@ -42,7 +42,34 @@ Thermistor::Thermistor(
 		_temperatureNominal(temperatureNominal),
 		_bCoef(bCoef),
 		_samples(samples),
-		_sampleDelay(sampleDelay) {
+		_sampleDelay(sampleDelay),
+		_thermistorFirst(false) {
+  pinMode(_pin, INPUT);
+}
+
+Thermistor::Thermistor(
+	int pin,
+	double vcc,
+	double analogReference,
+	int adcMax,
+	int seriesResistor,
+	int thermistorNominal,
+	int temperatureNominal,
+	int bCoef,
+	int samples,
+	int sampleDelay,
+	bool thermistorFirst):
+		_pin(pin),
+		_vcc(vcc),
+		_analogReference(analogReference),
+		_adcMax(adcMax),
+		_seriesResistor(seriesResistor),
+		_thermistorNominal(thermistorNominal),
+		_temperatureNominal(temperatureNominal),
+		_bCoef(bCoef),
+		_samples(samples),
+		_sampleDelay(sampleDelay),
+		_thermistorFirst(thermistorFirst) {
   pinMode(_pin, INPUT);
 }
 
@@ -68,8 +95,16 @@ double Thermistor::readTempF() const {
 	return cToF(readTempC());
 }
 
+double Thermistor::getResistance() const {
+	return adcToR(readADC());
+}
+
+double Thermistor::getVoltage() const {
+	return adcToV(readADC());
+}
+
 double Thermistor::adcToK(double adc) const {
-	double resistance = -1.0 * (_analogReference * _seriesResistor * adc) / (_analogReference * adc - _vcc * _adcMax);
+	double resistance = adcToR(adc);
 	double steinhart = (1.0 / (_temperatureNominal - ABS_ZERO)) + (1.0 / _bCoef) * log(resistance / _thermistorNominal);
 	double kelvin = 1.0 / steinhart;
 	return kelvin;
@@ -82,4 +117,24 @@ double Thermistor::kToC(double k) const {
 
 double Thermistor::cToF(double c) const {
 	return (c * 1.8) + 32;
+}
+
+double Thermistor::adcToV(double adc) const {	
+	double voltage = _analogReference * (adc / _adcMax);
+	return voltage;
+}
+
+double Thermistor::adcToR(double adc) const {
+	if (_thermistorFirst)
+	{
+		double voltage = adcToV(adc);
+		double resistance = ((_analogReference * _seriesResistor) / voltage) - _seriesResistor;
+		return resistance;
+	}
+	else
+	{
+		// Original calculation
+		double resistance = -1.0 * (_analogReference * _seriesResistor * adc) / (_analogReference * adc - _vcc * _adcMax);
+		return resistance;
+	}
 }
